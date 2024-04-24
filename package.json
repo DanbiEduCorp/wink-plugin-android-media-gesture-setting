@@ -1,0 +1,20 @@
+{
+  "name": "@danbieducorp/wink-plugin-android-media-gesture-setting",
+  "version": "0.1.18",
+  "description": "Android Media Gesture Settings",
+  "cordova": {
+    "id": "com.simplec.plugins.videosettings",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanbiEduCorp/wink-plugin-android-media-gesture-setting"
+  },
+  "author": "DanbiEduCorp",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  }
+}
