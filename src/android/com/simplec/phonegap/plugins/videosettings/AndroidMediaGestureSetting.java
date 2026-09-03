@@ -43,12 +43,16 @@ public class AndroidMediaGestureSetting extends CordovaPlugin {
 		boolean CORDOVA_4 = Integer.valueOf(CordovaWebView.CORDOVA_VERSION.split("\\.")[0]) >= 4;
 		Log.e(LOG_TAG, "CORDOVA_4: "+CORDOVA_4);
 		if (CORDOVA_4) {
-			if (webView.getClass().isAssignableFrom(WebView.class)) {
+			// webView is CordovaWebView, an interface. JDK 18+ javac compiles Object
+			// methods on an interface receiver to invokeinterface, which older ART
+			// (Android 7 / API 25) rejects with IncompatibleClassChangeError.
+			// Casting to Object forces invokevirtual. Do not remove.
+			if (((Object) webView).getClass().isAssignableFrom(WebView.class)) {
 				Log.e(LOG_TAG, "it is assignable");
 				thisView = ((WebView) webView);
 			} else {
 				Log.e(LOG_TAG, "using reflection to get method getView");
-				Method m = webView.getClass().getDeclaredMethod("getView");
+				Method m = ((Object) webView).getClass().getDeclaredMethod("getView");
 
 				Log.e(LOG_TAG, "got method: "+m);
 				thisView = (WebView) m.invoke(webView);//  webView.getView());
